@@ -1,6 +1,6 @@
 # PROJET CHATON
 
-[Catysfaction](https://bit.ly/catysfaction)
+Projet par la RAYM team: https://github.com/Korblen/Projet_chaton_ultimate
 
 ## Installation (Ruby 3.2.2)
 
