@@ -1,0 +1,360 @@
+    <section id="banner" style="background: #F9F3EC;">
+      <div class="container">
+        <div class="swiper main-swiper">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide py-5">
+              <div class="row banner-content align-items-center">
+                <div class="col-md-5 img-wrapper">
+        
+                <%= image_tag image_path("top_banner_kitten.png"),  class: "img-fluid"%>
+
+                </div>
+                <div class="content-wrapper col-md-7 p-5 mb-5 text-end"> <!-- Ajout de la classe text-end pour aligner à droite -->
+                  <div class="secondary-font text-primary text-uppercase mb-4">Réduction de 10% immédiate avec le code "MIAOU10"</div>
+                  <h2 class="banner-title display-1 fw-normal">Clique ou j'attrappe ta  <span class="text-primary">souris !</span>
+                  </h2>
+                  <a href="#items" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1">
+                    Je Fonce !
+                    <svg width="24" height="24" viewBox="0 0 24 24" class="mb-1">
+                      <use xlink:href="#arrow-right"></use>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    </br>
+
+
+
+    <div class="row flex-md-row-reverse g-md-5 mb-5">
+      <main class="col-md-9 mx-auto">
+            <div class="filter-shop d-md-flex justify-content-between align-items-center">
+              <div class="col-md-3 mt-5">
+
+                <h2 class="banner-title display-1 fw-normal" id="items">Catysfa<span class="text-primary">shop</span>
+            </br>
+              <div class="widget-menu">
+                <div class="widget-search-bar">
+                  <div class="search-bar border rounded-2 border-dark-subtle pe-3">
+                    <form id="search-form" class="text-center d-flex align-items-center" action="" method="">
+                      <input type="text" class="form-control border-0 bg-transparent" placeholder="Rechercher votre Catysphoto">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39ZM11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7Z"></path>
+                      </svg>
+                    </form>
+                  </div>
+                </div>
+              </div>    
+          </div>
+              </br>
+              
+              <div class="sort-by">
+                <select class="filter-categories border-0">
+                  <option value="">Trier par</option>
+                  <option value="name-asc">Nom (A - Z)</option>
+                  <option value="name-desc">Nom (Z - A)</option>
+                  <option value="price-asc">Prix (Low-High)</option>
+                  <option value="price-desc">Prix (High-Low)</option>
+                  <option value="rating-desc"">Note (Highest)</option>
+                  <option value="rating-asc">Note (Lowest)</option>
+                </select>
+              </div>
+            </div>
+
+          </br>
+        <% if admin? %>
+          <%= link_to 'New Item', new_item_path, class: "btn btn-primary mb-3" %>
+        <%end%>
+          <div class="product-grid row">
+            <div class="container">
+              <div class="row justify-content-center">
+                <% @items.each_slice(4) do |item_slice| %>
+                  <% item_slice.each do |item| %>
+                    <div class="col-md-3 mb-4">
+                      <div class="card h-100 border-0">
+                        <%= image_tag item.photo, class: "rounded-4" %>
+                        <div class="card-body">
+                          <h4><%= item.title %></h4>
+                          <div class="product-price pt-0 pb-0">
+                            <h3 class="secondary-font text-primary"> <%= number_to_euros(item.price) %></h3>
+                          </div>
+                          <!-- Bouton Voir la photo -->
+                          <div class="text-center">
+                            <%= link_to item_path(item), class: "btn btn-outline-dark border-0 pt-3" do %>
+                              <iconify-icon icon="mdi:eye-plus" class="fs-2"></iconify-icon>
+                            <% end %>
+                            <% if user_signed_in? %>
+                              <% if !item_already_in_cart?(item.id) %>
+                                <!-- Bouton Ajouter au panier -->
+                                <%= button_to "Ajouter au panier", cart_cart_items_path(cart_id: current_cart.id, item_id: item.id), class: "btn btn-dark mb-2", method: :post %>
+                              <% end %>
+                            <% else %>
+                              <!-- Renvoi vers sign_in -->
+                              <%= link_to "Ajouter au panier", new_user_session_path, class: "btn btn-dark mb-2", method: :post %>
+                            <% end %>
+                      <% if admin? %>
+                        <%= link_to"Edit", edit_item_path(item), class: "btn btn-outline-dark mb-2" %>
+                      <% end %>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      </main>
+    </div>
+
+<section id="banner" style="background: #F9F3EC; position: relative;">
+  <div class="container">
+    <div class="swiper main-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide py-5">
+          <div class="row banner-content align-items-end"> 
+            <div class="content-wrapper col-md-7 p-4 mb-4 text-start"> 
+              <div class="secondary-font text-primary text-uppercase mb-4">Jusqu'à 40% de réduction sur une sélection de photos</div>
+              <h2 class="banner-title display-1 fw-normal">minou <span class="text-primary">trop </span>mimi !!!
+              </h2>
+              <a href="#" class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 filter-button">
+                Je Fonce !
+              </a>
+            </div>
+            <div class="col-md-3 img-wrapper kitten-img" style="position: absolute; bottom: ; left: 50%; transform: translateX(-50%);"> 
+              <%= image_tag image_path("kitten.png"),  class: "img-fluid"%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<section id="testimonial">
+    <div class="container my-5 py-5">
+      <div class="row">
+        <div class="offset-md-1 col-md-10">
+          <div class="swiper testimonial-swiper">
+            <div class="swiper-wrapper">
+
+              <div class="swiper-slide">
+                <div class="row ">
+                  <div class="col-2">
+                    <iconify-icon icon="ri:double-quotes-l" class="quote-icon text-primary"></iconify-icon>
+                  </div>
+                  <div class="col-md-10 mt-md-5 p-5 pt-0 pt-md-5">
+                    <p class="testimonial-content fs-2">Des photos de chatons trop cute ! La livraison est rapide. Parfait pour les fléchettes... Dans le nez c'est 100 points direct ! J'en ai plein la caravane mon copain !</p>
+                    <p class="text-black">- Lopez Joe</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <section id="service">
+    <div class="container py-5 my-5">
+      <div class="row g-md-5 pt-2">
+        <div class="col-md-3 my-3">
+          <div class="card_delivery">
+            <div>
+              <iconify-icon class="service-icon text-primary" icon="la:shopping-cart"></iconify-icon>
+            </div>
+            <h3 class="card-title py-2 m-0">Livraison Gratuite</h3>
+            <div class="card-text">
+              <p class="blog-paragraph fs-6">Commandez maintenant, livraison gratuite !</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 my-3">
+          <div class="card_checkout">
+            <div>
+              <iconify-icon class="service-icon text-primary" icon="la:user-check"></iconify-icon>
+            </div>
+            <h3 class="card-title py-2 m-0">Paiment Sécurisé</h3>
+            <div class="card-text">
+              <p class="blog-paragraph fs-6">Achetez en toute sécurité ! Paiements sécurisés.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 my-3">
+          <div class="card_offer">
+            <div>
+              <iconify-icon class="service-icon text-primary" icon="la:tag"></iconify-icon>
+            </div>
+            <h3 class="card-title py-2 m-0">Offres Journalière</h3>
+            <div class="card-text">
+              <p class="blog-paragraph fs-6">bénéficiez de nos offres spéciales journalières !</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 my-3">
+          <div class="card_quality">
+            <div>
+              <iconify-icon class="service-icon text-primary" icon="la:award"></iconify-icon>
+            </div>
+            <h3 class="card-title py-2 m-0">Qualité d’Images Garantie</h3>
+            <div class="card-text">
+              <p class="blog-paragraph fs-6">Des photos FHD et 4K</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
+  <h1 class="display-1 text-center mt-3 mb-0"><span class="text-primary">Cat</span>Instagram</h1>
+  <h3 class="card-title text-center py-2 m-0">❤ ❤ ❤  Qui se ressemble s'assemble  ❤ ❤ ❤ 
+
+   <section id="insta" class="my-5">
+    <div class="row row-cols-5 g-1">
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+        <%= image_tag image_path("insta1.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+          
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+        <%= image_tag image_path("insta2.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta3.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta4.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta6.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta5.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta7.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta8.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta9.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta10.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta14.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta13.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta12.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+         <%= image_tag image_path("insta11.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+      <div class="col instagram-item text-center position-relative">
+        <div class="icon-overlay d-flex justify-content-center position-absolute">
+          <iconify-icon class="text-white" icon="la:instagram"></iconify-icon>
+        </div>
+        <a href="#">
+          <%= image_tag image_path("insta15.png"), alt:"insta-img", class: "img-fluid rounded-3 w-100"%>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+

@@ -1,0 +1,109 @@
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+      <div class="hero-content py-5 my-3">
+        <h2 class="display-1 mt-3 mb-0">Catys<span class="text-primary">Panier</span></h2>
+      </div>
+    </div>
+  </section>
+
+<section id="cart" class="my-5 py-5">
+  <div class="container">
+    <div class="row g-md-5">
+      <div class="col-md-8 pe-md-5">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col" class="card-title text-uppercase">Produit</th>
+              <th scope="col" class="card-title text-uppercase">Sous-total</th>
+              <th scope="col" class="card-title text-uppercase"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cart.items.each do |item| %>
+            <tr>
+              <td scope="row" class="py-4">
+                <div class="cart-info d-flex flex-wrap align-items-center ">
+                  <div class="col-lg-3">
+                    <div class="card-image">
+                      <%= link_to item_path(item) do %>
+                        <%= image_tag(item.photo, class: "img-fluid rounded-4") if item.photo.present? %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="col-lg-9">
+                    <div class="card-detail ps-3">
+                      <h5 class="card-title">
+                        <%= item.title %>
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="py-4 align-middle">
+                <div class="input-group product-qty align-items-center">
+                  <%# bouton supprimer CartItem %>
+                  <%= button_to "Supprimer", cart_cart_item_path(cart_id: @cart.id, item_id: item.id),  class: "btn btn-outline-dark mx-2", method: :delete %>
+                </div>
+              </td>
+              <td class="py-4 align-middle  col-md-2">
+                <div class="total-price mt-3">
+                  <p>Prix: <%= number_to_euros(item.price) %></p>
+                </div>
+              </td>
+              <td class="py-4 align-middle">
+                <div class="cart-remove">
+                  <a href="#">
+                    <svg width="24" height="24">
+                      <use xlink:href="#trash"></use>
+                    </svg>
+                  </a>
+                </div>
+              </td>
+            </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-4">
+        <div class="cart-totals">
+          <h2 class="pb-4">Total du Panier</h2>
+          <div class="total-price pb-4">
+            <table cellspacing="0" class="table text-uppercase">
+              <tbody>
+                <tr class="order-total pt-2 pb-2 border-bottom">
+                  <th>Total</th>
+                  <td data-title="Total">
+                    <span class="price-amount amount text-dark ps-5">
+                      <bdi>
+                        <%= number_to_euros(@cart.total) %>
+                      </bdi>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="button-wrap row g-2">
+            <div class="col-md-6">
+              <%= link_to "Continuer les Achats", "/", class: "btn btn-outline-dark mx-2" %>
+            </div>
+            <div class="col-md-12">
+            <%= button_to "Passer à la caisse ", new_checkout_create_path(cart_id: @cart.id), method: :post, data: { turbo: false }, class: "btn btn-dark mx-2" %>
+            </div>
+            </br>
+            </br>
+            </br>
+         
+            <div class="col-md-12">
+              <%= button_to "Vider le panier", cart_path,  class: "btn btn-outline-dark mx-2", method: :put %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+

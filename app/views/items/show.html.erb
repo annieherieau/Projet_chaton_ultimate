@@ -1,0 +1,75 @@
+<section id="banner" class="py-3" style="background: #F9F3EC;">
+    <div class="container">
+      <div class="hero-content py-5 my-3">
+        <h2 class="display-1 mt-3 mb-0">Catys<span class="text-primary">Photo</span></h2>
+      </div>
+    </div>
+  </section>
+
+<div class="container my-md-5 py-5">
+  <div class="row g-md-5">
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-md-12 justify-content-center">
+          <!-- Image du produit -->
+          <%= image_tag @item.photo, width: "400px", class: "rounded-4", alt: @item.title %>
+        </div>
+        <div class="col-md-12 mt-2">
+          <!-- product-thumbnail-slider -->
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 mt-5">
+      <div class="product-info">
+        <!-- Titre du produit -->
+        <div class="element-header">
+          <h5 class="card-title"><%= @item.title %></h5>
+        </div>
+        <!-- Prix du produit -->
+        <div class="product-price pt-3 pb-3">
+          <strong class="text-primary display-6 fw-bold"> <%= number_to_euros(@item.price) %></strong>
+        </div>
+        <!-- Description du produit -->
+        <p class="card-text"><%= @item.description %></p>
+        <!-- Stock -->
+          <div class="stock-button-wrap">
+            <div class="d-flex flex-wrap pt-4">
+              <!-- Bouton Ajouter au panier -->
+              <% if user_signed_in? %>
+                <% if item_already_in_cart?(@item.id) %>
+                  <%# bouton supprimer CartItem %>
+                  <%= button_to "Supprimer", cart_cart_item_path(cart_id: current_cart.id, item_id: @item.id),  method: :delete, class: "btn btn-secondary " %>
+                <% else %>
+                  <%= button_to "Ajouter au panier", cart_cart_items_path(cart_id: current_cart.id, item_id: @item.id), class: "btn btn-dark", method: :post %>
+                <% end %>
+                <!-- Lien pour voir le panier -->
+               <%= link_to "Voir mon panier", cart_path(current_cart), class: "btn btn-dark bp-0 mx-2 mb-2" %>
+              <% else %>
+                <!-- Renvoi vers sign_in -->
+                <%= link_to "Ajouter au panier", new_user_session_path, class: "btn btn-dark", method: :post %>
+              <% end %>
+              <% if admin? %>
+                <%= link_to"Edit", edit_item_path(@item), class: "btn btn-outline-dark bp-0 mx-2 mb-2" %>
+              <% end %>
+              
+              
+              <a href="#" class="btn-wishlist px-4 pt-2 border-0">
+                <iconify-icon icon="fluent:heart-28-filled" class="fs-5"></iconify-icon>
+              </a>
+            </div>
+          </div>
+        <div class="meta-item d-flex align-items-baseline">
+          <h6 class="item-title fw-bold no-margin pe-2">Tags:</h6>
+          <ul class="select-list list-unstyled d-flex">
+            <li data-value="S" class="select-item">
+              <a href="#">Clothes</a>,
+            </li>
+            <li data-value="S" class="select-item">
+              <a href="#">Hoodies</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,8 @@
+<div class="container mt-5">
+  <h1>Commande Annulée</h1>
+  <p>Votre commande a été annulée. Si vous avez rencontré un problème, veuillez nous contacter pour obtenir de l'aide.</p>
+  <div class="actions">
+    <%= link_to 'Retour à la boutique', root_path, class: 'btn btn-primary' %>
+    <%= link_to 'Voir le panier', cart_path(current_cart), class: 'btn btn-secondary' %> 
+  </div>
+</div>

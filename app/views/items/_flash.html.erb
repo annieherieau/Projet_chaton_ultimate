@@ -1,0 +1,7 @@
+ <%# ALERTE FORMULAIRE %>
+    <% if @item && @item.errors.any? %>
+      <p>Nous n'avons pas réussi à créer ton item pour la (ou les) raison(s) suivante(s) :</p>
+      <% @item.errors.full_messages.each do |message| %>
+        <p class="alert alert-danger" role="alert"><%= message %></p>
+      <% end %>
+    <% end %>
